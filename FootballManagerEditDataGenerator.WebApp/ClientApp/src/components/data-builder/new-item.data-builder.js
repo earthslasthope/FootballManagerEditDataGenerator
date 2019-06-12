@@ -9,7 +9,10 @@ const NewItemContext = React.createContext({
 
 const Reviewer = () => <NewItemContext.Consumer>
     {({reviewData}) => <div className="reviewer">
-        <span>{JSON.stringify(reviewData)}</span>
+        {Object.keys(reviewData).map(key => reviewData[key]).map(({ property, text, link }) => <div key={property} className="review-item">
+            <span className="property">{property}</span>
+            <span className="text">{text}</span>
+        </div>)}
     </div> }
 </NewItemContext.Consumer>
 
@@ -68,7 +71,7 @@ class NewItem extends React.Component {
         const { selectTeam } = this;
         const { input, searchResults, searchString, reviewData } = this.state;
 
-        return <NewItemContext.Provider value={{ selectTeam, searchResults, searchString }}>
+        return <NewItemContext.Provider value={{ selectTeam, searchResults, searchString, reviewData }}>
             <div className="new-item">
                 <p>Enter name of team to search and review</p>
                 <form onSubmit={this.submit}>

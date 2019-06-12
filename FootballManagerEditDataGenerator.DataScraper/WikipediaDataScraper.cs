@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Humanizer;
 
 namespace FootballManagerEditDataGenerator.DataScraper
 {
@@ -112,7 +113,7 @@ namespace FootballManagerEditDataGenerator.DataScraper
                     };
                 });
 
-            var dictionary = dictionaryValues.ToDictionary(x => x.property, x => new WikipediaInfoboxItem { Property = x.property, Text = x.text, Link = x.hyperlink });
+            var dictionary = dictionaryValues.ToDictionary(x => x.property.Dehumanize(), x => new WikipediaInfoboxItem { Property = x.property, Text = x.text, Link = x.hyperlink });
             var result = new WikipediaInfobox();
             
             foreach (var kvp in dictionary)
