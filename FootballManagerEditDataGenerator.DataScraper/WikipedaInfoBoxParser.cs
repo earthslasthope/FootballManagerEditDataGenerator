@@ -59,9 +59,9 @@ namespace FootballManagerEditDataGenerator.DataScraper
                 x => new WikipediaInfoboxItem
                 {
                     Property = x.property,
-                    Values = new List<WikipediaInfoBoxItemValue>
+                    Values = new List<WikipediaInfoBoxItemData>
                     {
-                        new WikipediaInfoBoxItemValue
+                        new WikipediaInfoBoxItemData
                         {
                             Text = x.text,
                             Link = x.hyperlink
@@ -77,6 +77,44 @@ namespace FootballManagerEditDataGenerator.DataScraper
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// For a HTML node containing one or more collections of text with hyperlink followed
+        /// by possibly year ranges.
+        /// This is expected to handle a variety of scenarios. See WikipediaInfoBoxParser_Tests
+        /// for examples.
+        /// </summary>
+        /// <param name="node">
+        /// HTML node containing either plain text or hyperlink. It can include br tags
+        /// and it's also possible for there to be more than one such data.
+        /// </param>
+        /// <returns>Collection of Info Box Data Items for one field.</returns>
+        internal IEnumerable<WikipediaInfoBoxItemData> ParseDataFromNode(HtmlNode node)
+        {
+            string text = null;
+            string hyperlink = null;
+
+            var childNodes = node.ChildNodes;
+
+            if (childNodes?.Count == 1)
+            {
+                text = childNodes[0].InnerText;
+            }
+
+            if (childNodes?.Count == 1 && childNodes[0].NodeType == HtmlNodeType.Element && childNodes[0].Name == "a")
+            {
+                hyperlink = childNodes[0].Attributes["href"]?.Value;
+            }
+
+            return new List<WikipediaInfoBoxItemData>
+            {
+                new WikipediaInfoBoxItemData
+                {
+                    Text = text,
+                    Link = hyperlink
+                }
+            };
         }
     }
 }
