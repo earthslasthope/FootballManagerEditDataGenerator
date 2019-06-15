@@ -1,10 +1,8 @@
-﻿using Fizzler.Systems.HtmlAgilityPack;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Fizzler.Systems.HtmlAgilityPack;
 using HtmlAgilityPack;
 using Humanizer;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace FootballManagerEditDataGenerator.DataScraper
 {
@@ -31,26 +29,12 @@ namespace FootballManagerEditDataGenerator.DataScraper
                 .Select(tr =>
                 {
                     string property = tr.th.InnerHtml;
-                    string text = null;
-                    string hyperlink = null;
-
-                    var childNodes = tr.td.ChildNodes;
-
-                    if (childNodes?.Count == 1)
-                    {
-                        text = childNodes[0].InnerText;
-                    }
-
-                    if (childNodes?.Count == 1 && childNodes[0].NodeType == HtmlNodeType.Element && childNodes[0].Name == "a")
-                    {
-                        hyperlink = childNodes[0].Attributes["href"]?.Value;
-                    }
+                    var data = ParseDataFromNode(tr.td);
 
                     return new
                     {
                         property,
-                        text,
-                        hyperlink
+                        data
                     };
                 });
 
@@ -59,14 +43,7 @@ namespace FootballManagerEditDataGenerator.DataScraper
                 x => new WikipediaInfoboxItem
                 {
                     Property = x.property,
-                    Values = new List<WikipediaInfoBoxItemData>
-                    {
-                        new WikipediaInfoBoxItemData
-                        {
-                            Text = x.text,
-                            Link = x.hyperlink
-                        }
-                    }
+                    Data = x.data
                 });
 
             var result = new WikipediaInfobox();

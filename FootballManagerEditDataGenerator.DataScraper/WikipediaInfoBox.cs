@@ -19,7 +19,7 @@ namespace FootballManagerEditDataGenerator.DataScraper
     public class WikipediaInfoboxItem
     {
         public string Property { get; set; }
-        public IEnumerable<WikipediaInfoBoxItemData> Values { get; set; }
+        public IEnumerable<WikipediaInfoBoxItemData> Data { get; set; }
     }
 
     public class WikipediaInfoBoxItemData

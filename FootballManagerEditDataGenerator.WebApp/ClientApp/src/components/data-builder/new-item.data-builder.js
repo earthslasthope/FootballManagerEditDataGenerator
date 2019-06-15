@@ -9,10 +9,10 @@ const NewItemContext = React.createContext({
 
 const Reviewer = () => <NewItemContext.Consumer>
     {({reviewData}) => <div className="reviewer">
-        {Object.keys(reviewData).map(key => reviewData[key]).map(({ property, values }) => <div key={property} className="review-item">
+        {Object.keys(reviewData).map(key => reviewData[key]).map(({ property, data }) => <div key={property} className="review-item">
             <span className="property">{property}</span>
-            <div className="values">
-                {values.map(({ text, link, yearFrom, yearTo }, index) => <span key={index} className="value-item">
+            <div className="data">
+                {data.map(({ text, link, yearFrom, yearTo }, index) => <span key={index} className="value-item">
                     {text}
                 </span>)}
             </div>
