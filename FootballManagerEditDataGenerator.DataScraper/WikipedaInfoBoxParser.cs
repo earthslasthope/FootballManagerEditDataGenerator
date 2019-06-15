@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Fizzler.Systems.HtmlAgilityPack;
 using HtmlAgilityPack;
 using Humanizer;
 
+[assembly: InternalsVisibleTo("FootballManagerEditDataGenerator.DataScraper.Tests")]
 namespace FootballManagerEditDataGenerator.DataScraper
 {
     internal class WikipedaInfoBoxParser
