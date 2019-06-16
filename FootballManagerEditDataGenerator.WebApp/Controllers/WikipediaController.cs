@@ -17,7 +17,7 @@ namespace FootballManagerEditDataGenerator.WebApp.Controllers
         [HttpGet("[action]/{pageTitle}")]
         public IActionResult Infobox(string pageTitle)
         {
-            return Ok(dataScraper.GetInfoBox(pageTitle));
+            return Ok(dataScraper.GetInfoBox<WikipediaInfoBoxItemData>(pageTitle));
         }
 
         [HttpGet("[action]/{searchString}")]

@@ -3,9 +3,10 @@ using System.Collections.Generic;
 
 namespace FootballManagerEditDataGenerator.DataScraper
 {
-    public class WikipediaInfobox : Dictionary<string, WikipediaInfoboxItem>, IDictionary<string, WikipediaInfoboxItem>
+    public class WikipediaInfobox<TInfoboxData> : Dictionary<string, WikipediaInfoboxItem<TInfoboxData>>, IDictionary<string, WikipediaInfoboxItem<TInfoboxData>>
+        where TInfoboxData : WikipediaInfoBoxItemData
     {
-        public void Add(WikipediaInfoboxItem item)
+        public void Add(WikipediaInfoboxItem<TInfoboxData> item)
         {
             if (ContainsKey(item.Property))
             {
@@ -16,7 +17,8 @@ namespace FootballManagerEditDataGenerator.DataScraper
         }
     }
 
-    public class WikipediaInfoboxItem
+    public class WikipediaInfoboxItem<TInfoboxData>
+        where TInfoboxData : WikipediaInfoBoxItemData
     {
         public string Property { get; set; }
         public IEnumerable<WikipediaInfoBoxItemData> Data { get; set; }

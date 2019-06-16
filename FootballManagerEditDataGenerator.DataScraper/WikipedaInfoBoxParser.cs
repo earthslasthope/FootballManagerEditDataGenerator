@@ -8,7 +8,8 @@ using Humanizer;
 [assembly: InternalsVisibleTo("FootballManagerEditDataGenerator.DataScraper.Tests")]
 namespace FootballManagerEditDataGenerator.DataScraper
 {
-    internal class WikipedaInfoBoxParser
+    internal class WikipedaInfoBoxParser<TInfoboxData>
+        where TInfoboxData : WikipediaInfoBoxItemData
     {
         private readonly HtmlNode rootTableElement;
 
@@ -17,7 +18,7 @@ namespace FootballManagerEditDataGenerator.DataScraper
             this.rootTableElement = rootTableNode;
         }
 
-        public WikipediaInfobox Parse()
+        public WikipediaInfobox<TInfoboxData> Parse()
         {
             var scrapedTableElements = this.rootTableElement.QuerySelectorAll("tbody > tr")
                 .Select(tr => new
@@ -42,13 +43,13 @@ namespace FootballManagerEditDataGenerator.DataScraper
 
             var dictionary = dictionaryValues.ToDictionary(
                 x => x.property.Dehumanize(), 
-                x => new WikipediaInfoboxItem
+                x => new WikipediaInfoboxItem<TInfoboxData>
                 {
                     Property = x.property,
                     Data = x.data
                 });
 
-            var result = new WikipediaInfobox();
+            var result = new WikipediaInfobox<TInfoboxData>();
 
             foreach (var kvp in dictionary)
             {
