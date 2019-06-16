@@ -8,13 +8,13 @@ using Humanizer;
 [assembly: InternalsVisibleTo("FootballManagerEditDataGenerator.DataScraper.Tests")]
 namespace FootballManagerEditDataGenerator.DataScraper
 {
-    internal class WikipedaInfoBoxParser<TInfobox, TInfoboxData>
+    internal class WikipedaInfoboxParser<TInfobox, TInfoboxData>
         where TInfobox : WikipediaInfobox<TInfoboxData>, new()
-        where TInfoboxData : WikipediaInfoBoxItemData, new()
+        where TInfoboxData : WikipediaInfoboxItemData, new()
     {
         private readonly HtmlNode rootTableElement;
 
-        public WikipedaInfoBoxParser(HtmlNode rootTableNode)
+        public WikipedaInfoboxParser(HtmlNode rootTableNode)
         {
             this.rootTableElement = rootTableNode;
         }

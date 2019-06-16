@@ -10,7 +10,7 @@ namespace FootballManagerEditDataGenerator.DataScraper
         public Dictionary<string, KitFile> Kits { get; set; }
     }
 
-    public class SportsTeamInfoboxData : WikipediaInfoBoxItemData
+    public class SportsTeamInfoboxData : WikipediaInfoboxItemData
     {
         
     }

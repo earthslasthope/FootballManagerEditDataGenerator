@@ -33,7 +33,7 @@ namespace FootballManagerEditDataGenerator.DataScraper.Tests
         [Fact]
         public void WikipediaDataScraper_GetInfoBox_ItReturnsData()
         {
-            var data = this.dataScraper.GetInfoBox<WikipediaInfobox<WikipediaInfoBoxItemData>, WikipediaInfoBoxItemData>("Seattle_SuperSonics");
+            var data = this.dataScraper.GetInfoBox<WikipediaInfobox<WikipediaInfoboxItemData>, WikipediaInfoboxItemData>("Seattle_SuperSonics");
 
             Assert.NotNull(data);
         }

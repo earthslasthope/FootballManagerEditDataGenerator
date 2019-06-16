@@ -5,7 +5,7 @@ using HtmlAgilityPack;
 
 namespace FootballManagerEditDataGenerator.DataScraper
 {
-    internal class SportsTeamInfoboxParser : WikipedaInfoBoxParser<SportsTeamInfobox, SportsTeamInfoboxData>
+    internal class SportsTeamInfoboxParser : WikipedaInfoboxParser<SportsTeamInfobox, SportsTeamInfoboxData>
     {
         public SportsTeamInfoboxParser(HtmlNode rootTableNode) : base(rootTableNode)
         {
