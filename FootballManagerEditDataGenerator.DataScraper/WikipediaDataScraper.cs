@@ -65,8 +65,9 @@ namespace FootballManagerEditDataGenerator.DataScraper
                 .ToList();
         }
 
-        public WikipediaInfobox<TInfoboxData> GetInfoBox<TInfoboxData>(string pageTitle)
-            where TInfoboxData : WikipediaInfoBoxItemData
+        public TInfobox GetInfoBox<TInfobox, TInfoboxData>(string pageTitle)
+            where TInfobox : WikipediaInfobox<TInfoboxData>, new()
+            where TInfoboxData : WikipediaInfoBoxItemData, new()
         {
             var client = GetRestClient();
             var request = GetBaseRestRequest();
@@ -78,7 +79,7 @@ namespace FootballManagerEditDataGenerator.DataScraper
             document.LoadHtml(parsedText);
 
             var tableNode = document.DocumentNode.QuerySelector("table.infobox");
-            var parser = new WikipedaInfoBoxParser<TInfoboxData>(tableNode);
+            var parser = new WikipedaInfoBoxParser<TInfobox, TInfoboxData>(tableNode);
 
             return parser.Parse();
         }

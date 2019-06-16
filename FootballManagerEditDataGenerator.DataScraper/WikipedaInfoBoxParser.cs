@@ -8,8 +8,9 @@ using Humanizer;
 [assembly: InternalsVisibleTo("FootballManagerEditDataGenerator.DataScraper.Tests")]
 namespace FootballManagerEditDataGenerator.DataScraper
 {
-    internal class WikipedaInfoBoxParser<TInfoboxData>
-        where TInfoboxData : WikipediaInfoBoxItemData
+    internal class WikipedaInfoBoxParser<TInfobox, TInfoboxData>
+        where TInfobox : WikipediaInfobox<TInfoboxData>, new()
+        where TInfoboxData : WikipediaInfoBoxItemData, new()
     {
         private readonly HtmlNode rootTableElement;
 
@@ -18,7 +19,7 @@ namespace FootballManagerEditDataGenerator.DataScraper
             this.rootTableElement = rootTableNode;
         }
 
-        public WikipediaInfobox<TInfoboxData> Parse()
+        public virtual TInfobox Parse()
         {
             var scrapedTableElements = this.rootTableElement.QuerySelectorAll("tbody > tr")
                 .Select(tr => new
@@ -49,7 +50,7 @@ namespace FootballManagerEditDataGenerator.DataScraper
                     Data = x.data
                 });
 
-            var result = new WikipediaInfobox<TInfoboxData>();
+            var result = new TInfobox();
 
             foreach (var kvp in dictionary)
             {
@@ -70,7 +71,7 @@ namespace FootballManagerEditDataGenerator.DataScraper
         /// and it's also possible for there to be more than one such data.
         /// </param>
         /// <returns>Collection of Info Box Data Items for one field.</returns>
-        internal IEnumerable<WikipediaInfoBoxItemData> ParseDataFromNode(HtmlNode node)
+        internal virtual IEnumerable<TInfoboxData> ParseDataFromNode(HtmlNode node)
         {
             string text = null;
             string hyperlink = null;
@@ -87,9 +88,9 @@ namespace FootballManagerEditDataGenerator.DataScraper
                 hyperlink = childNodes[0].Attributes["href"]?.Value;
             }
 
-            return new List<WikipediaInfoBoxItemData>
+            return new List<TInfoboxData>
             {
-                new WikipediaInfoBoxItemData
+                new TInfoboxData
                 {
                     Text = text,
                     Link = hyperlink
