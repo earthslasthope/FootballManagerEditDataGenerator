@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Runtime.CompilerServices;
 using Fizzler.Systems.HtmlAgilityPack;
+using FootballManagerEditDataGenerator.DataScraper.Strategies.InfoboxParsing;
 using HtmlAgilityPack;
 using Humanizer;
 
@@ -73,29 +74,21 @@ namespace FootballManagerEditDataGenerator.DataScraper
         /// <returns>Collection of Info Box Data Items for one field.</returns>
         internal virtual IEnumerable<TInfoboxData> ParseDataFromNode(HtmlNode node)
         {
-            string text = null;
-            string hyperlink = null;
+            var strategy = SelectStrategy(node);
 
-            var childNodes = node.ChildNodes;
+            return strategy.ParseDataFromNode(node);
+        }
 
-            if (childNodes?.Count == 1)
+        internal virtual IInfoboxParsingStrategy<TInfoboxData> SelectStrategy(HtmlNode node)
+        {
+            var defaultStrategy = new DefaultStrategy<TInfoboxData>();
+
+            if (node.ChildNodes.Any(x => x.Name == "br"))
             {
-                text = childNodes[0].InnerText;
+                return new MultiLineStrategy<TInfoboxData>(defaultStrategy);
             }
 
-            if (childNodes?.Count == 1 && childNodes[0].NodeType == HtmlNodeType.Element && childNodes[0].Name == "a")
-            {
-                hyperlink = childNodes[0].Attributes["href"]?.Value;
-            }
-
-            return new List<TInfoboxData>
-            {
-                new TInfoboxData
-                {
-                    Text = text,
-                    Link = hyperlink
-                }
-            };
+            return defaultStrategy;
         }
     }
 }
