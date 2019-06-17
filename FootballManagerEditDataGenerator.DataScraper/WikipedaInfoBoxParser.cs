@@ -81,14 +81,15 @@ namespace FootballManagerEditDataGenerator.DataScraper
 
         internal virtual IInfoboxParsingStrategy<TInfoboxData> SelectStrategy(HtmlNode node)
         {
-            var defaultStrategy = new DefaultStrategy<TInfoboxData>();
+            IInfoboxParsingStrategy<TInfoboxData> strategy = new DefaultStrategy<TInfoboxData>();
+            strategy = new YearRangeExtractingStrategy<TInfoboxData>(strategy);
 
             if (node.ChildNodes.Any(x => x.Name == "br"))
             {
-                return new MultiLineStrategy<TInfoboxData>(defaultStrategy);
+                strategy = new MultiLineStrategy<TInfoboxData>(strategy);
             }
 
-            return defaultStrategy;
+            return strategy;
         }
     }
 }
