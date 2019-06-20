@@ -5,6 +5,22 @@ import NewItem from './new-item.data-builder';
 
 import './styles.scss';
 
+/** @type {GlobalTypes.MyAwesomeType} */
+var obj = {
+    name: 'bob'
+};
+
+obj.favoriteNumber = 'sfdsfdsfs';
+
+/** @type {CrazyTypes.Nonesense} */
+var crazy = {};
+crazy.language = "English";
+
+/** @type {CrazyTypes.Nonesense} */
+var crazy2 = {
+    isGay: 'No'
+};
+
 class DataBuilderMain extends React.Component {
     constructor(props) {
         super(props);
