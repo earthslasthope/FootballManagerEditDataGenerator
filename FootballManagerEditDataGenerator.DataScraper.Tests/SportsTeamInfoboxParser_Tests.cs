@@ -30,9 +30,9 @@ namespace FootballManagerEditDataGenerator.DataScraper.Tests
         {
             var data = ParseSeattleSupersonicsWikiPage();
 
-            Assert.Equal("#00ADA8", data.TeamColors.First());
-            Assert.Equal("#BA7845", data.TeamColors.ElementAt(1));
-            Assert.Equal("#E03A3E", data.TeamColors.ElementAt(2));
+            Assert.Equal("#006633", data.TeamColors.First());
+            Assert.Equal("#FFBE00", data.TeamColors.ElementAt(1));
+            Assert.Equal("#FFFFFF", data.TeamColors.ElementAt(2));
         }
 
         [Fact]
