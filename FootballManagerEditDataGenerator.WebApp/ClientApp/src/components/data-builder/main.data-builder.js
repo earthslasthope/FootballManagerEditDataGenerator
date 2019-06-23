@@ -12,10 +12,24 @@ class DataBuilderMain extends React.Component {
         this.state = {
             items: []
         };
+
+        this.addItem = this.addItem.bind(this);
+    }
+
+    addItem(item) {
+        this.setState({
+            items: [...this.state.items, item]
+        });
     }
 
     render() {
-        return <Context.Provider state={this.state}>
+        const { addItem, state } = this;
+        const providerValue = {
+            addItem,
+            ...state
+        };
+
+        return <Context.Provider value={providerValue}>
             <div className="data-builder">
                 <NewItem />
             </div>

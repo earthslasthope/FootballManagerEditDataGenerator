@@ -1,3 +1,5 @@
+@import '../../styles/global.scss';
+
 .data-builder {
     display: flex;
 
@@ -28,6 +30,19 @@
                 vertical-align: top;
                 display: inline-block;
             }
+        }
+    }
+
+    .reviewer-approval {
+        span {
+            margin-top: 20px;
+            display: block;
+            font-weight: bold;
+            font-style: italic;
+        }
+
+        button {
+            display: inline-block;
         }
     }
 }
