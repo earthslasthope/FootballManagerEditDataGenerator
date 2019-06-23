@@ -1,7 +1,33 @@
 .data-builder {
-    display: 'flex';
+    display: flex;
 
-    .searchmatch {
-        font-weight: bold;
+    .search-results {
+        .searchmatch {
+            font-weight: bold;
+        }
+    }
+
+    .new-item {
+        form {
+            margin-bottom: 10px;
+        }
+    }
+
+    .reviewer {
+        .review-item {
+            margin-bottom: 5px;
+
+            .property {
+                display: inline-block;
+                margin-right: 4px;
+                font-weight: bold;
+                width: 100px;
+            }
+    
+            .data {
+                vertical-align: top;
+                display: inline-block;
+            }
+        }
     }
 }
